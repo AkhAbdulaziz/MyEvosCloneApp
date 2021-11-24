@@ -76,7 +76,7 @@
 11. Якуний Қоидалар
 11.1. Ушбу Шартнома – оммавий таклиф (оферта) иловдаги ва бу илова эгасининг расмий ҳужжати ҳисобланади. Шартномадаги барча иловалар, қўшимчалар ва киритилган тузатишлар унинг ажралмас қисми ҳисобланади.
 11.2. Суд томонидан ушбу шартномага тегишли битим шартларини ва унинг қоидаларини, бирон бир иловасини яроқсиз ёки ҳақиқий эмас деб топиши, қолган шартларни, қоидаларни ва иловаларни инкор қилишга ёки яроқсизлиликка, ҳақиқий эмаслигига олиб келмайди.</string>
-    <string name="register_phone_info">To\'liq foydalanish uchun telefon\\n raqamingizni kiriting</string>
+    <string name="register_phone_info">To\'liq foydalanish uchun telefon raqamingizni kiriting</string>
 
     <!-- BottomNavigationView strings -->
     <string name="bnv_main">Asosiy</string>
@@ -84,4 +84,8 @@
     <string name="bnv_food_menu">Menu</string>
     <string name="bnv_restaurants">Restoranlar</string>
     <string name="bnv_profile">Profil</string>
+
+    <string name="favourites_screen_empty_text">Siz sevimli ovqatlaringizni hali qo\'shmadingiz</string>
+    <dimen name="bg_radius">8dp</dimen>
+    <dimen name="bg_mini_radius">6dp</dimen>
 </resources>

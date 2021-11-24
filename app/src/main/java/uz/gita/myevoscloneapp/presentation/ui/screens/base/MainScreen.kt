@@ -5,11 +5,13 @@ import android.view.MenuItem
 import android.view.View
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.myevoscloneapp.R
 import uz.gita.myevoscloneapp.databinding.ScreenMainNavBinding
+import uz.gita.myevoscloneapp.model.data.FoodData
 import uz.gita.myevoscloneapp.presentation.ui.adapters.MainScreenAdapter
 import uz.gita.myevoscloneapp.utils.scope
 
@@ -36,6 +38,23 @@ class MainScreen : Fragment(R.layout.screen_main_nav),
             return@setOnItemSelectedListener true
         }
         adapter.setOnClickHomeButtonListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        innerLayout.btnMenu.setOnClickListener {
+          /*  findNavController().navigate(
+                MainScreenDirections.actionMainScreenToFoodInfoScreen(
+                    FoodData(
+                        9,
+                        "Go'shtli shaurma acchiq",
+                        17000,
+                        "https://firebasestorage.googleapis.com/v0/b/myevosclone.appspot.com/o/foods%2FGo'shtli%20shaurma%20achchiq.jpg?alt=media&token=e97c7a68-e627-4318-95de-551cea9d9112",
+                        3,
+                        false,
+                        0
+                    )
+                )
+            )*/
             drawerLayout.openDrawer(GravityCompat.START)
         }
 

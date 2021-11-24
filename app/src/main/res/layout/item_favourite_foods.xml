@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    android:background="@drawable/progress_bg"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/img_favourite_food"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/sample_img_popular_food" />
+
+    <TextView
+        android:id="@+id/name_favourite_food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/price_favourite_food"
+        app:layout_constraintLeft_toRightOf="@id/img_favourite_food"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Lavash" />
+
+    <TextView
+        android:id="@+id/price_favourite_food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/img_favourite_food"
+        app:layout_constraintTop_toBottomOf="@id/name_favourite_food"
+        tools:text="21 000 so'm" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAddFoodInFavourite"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/text_button_bg"
+        android:gravity="center"
+        android:paddingHorizontal="26dp"
+        android:text="qo'shish"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/layoutIncDecInFavourite"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/progress_darker_bg"
+        android:padding="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:adjustViewBounds="true"
+            android:background="?android:selectableItemBackground"
+            android:padding="4dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_delete" />
+
+        <ImageButton
+            android:id="@+id/btnDecInFavourite"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:adjustViewBounds="true"
+            android:background="?android:selectableItemBackground"
+            android:padding="4dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_minus"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/txtCountInFavourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/color_black"
+            android:textSize="16sp"
+            android:text="0" />
+
+        <ImageButton
+            android:id="@+id/btnIncInFavourite"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:adjustViewBounds="true"
+            android:background="?android:selectableItemBackground"
+            android:padding="4dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_plus" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

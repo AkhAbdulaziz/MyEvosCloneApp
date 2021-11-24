@@ -3,13 +3,13 @@
     <item android:state_enabled="false">
         <shape>
             <solid android:color="#46EAE4E4" />
-            <corners android:radius="12sp" />
+            <corners android:radius="@dimen/bg_radius" />
         </shape>
     </item>
     <item android:state_enabled="true">
         <shape>
-            <solid android:color="#06B609" />
-            <corners android:radius="12sp" />
+            <solid android:color="@color/color_base" />
+            <corners android:radius="@dimen/bg_radius" />
         </shape>
     </item>
 </selector>

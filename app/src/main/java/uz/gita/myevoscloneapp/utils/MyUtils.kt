@@ -2,6 +2,7 @@ package uz.gita.myevoscloneapp.utils
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.viewbinding.ViewBinding
@@ -13,6 +14,10 @@ fun <T : ViewBinding> T.scope(f: T.() -> Unit) {
 
 fun timber(message: String, tag: String = "TTT") {
     Timber.tag(tag).d(message)
+}
+
+fun makeLog(message: String, tag: String = "TTT") {
+    Log.d(tag, message)
 }
 
 //hide keyboard from fragment

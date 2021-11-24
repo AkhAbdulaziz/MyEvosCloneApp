@@ -50,5 +50,18 @@
         android:id="@+id/mainScreen"
         android:name="uz.gita.myevoscloneapp.presentation.ui.screens.base.MainScreen"
         android:label="screen_main"
-        tools:layout="@layout/screen_main" />
+        tools:layout="@layout/screen_main" >
+        <action
+            android:id="@+id/action_mainScreen_to_foodInfoScreen"
+            app:destination="@id/foodInfoScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodInfoScreen"
+        android:name="uz.gita.myevoscloneapp.presentation.ui.screens.base.FoodInfoScreen"
+        android:label="screen_food_info"
+        tools:layout="@layout/screen_food_info" >
+        <argument
+            android:name="foodData"
+            app:argType="uz.gita.myevoscloneapp.model.data.FoodData" />
+    </fragment>
 </navigation>
