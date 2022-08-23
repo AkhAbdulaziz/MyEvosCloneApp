@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/color_white"
+    android:padding="16dp"
+    tools:context=".presentation.ui.screens.base.AboutUsScreen">
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="22dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/back_btn" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="Materials we used"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Icon by Gayrat Muminov on freeicons.io\nhttps://freeicons.io/profile/3277\nhttps://freeicons.io"
+        android:textColor="@color/color_grey"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Icon by Reda on freeicons.io\nhttps://freeicons.io/profile/6156\nhttps://freeicons.io"
+        android:textColor="@color/color_grey"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Icon by Fasil on freeicons.io\nhttps://freeicons.io/profile/722\nhttps://freeicons.io"
+        android:textColor="@color/color_grey"
+        android:textSize="14sp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

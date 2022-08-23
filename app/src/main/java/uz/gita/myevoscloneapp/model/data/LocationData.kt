@@ -9,17 +9,17 @@ data class LocationData(
     val name: String,
     val description: String,
     val time: String,
-    val latitude: Float,
-    val longitude: Float,
-    val type: Int
+    val latitude: Double,
+    val longitude: Double,
+    val type: Long
 ) : Parcelable
 
-enum class LocationEnum(val pos: Int) {
-    TASHKENT(1),
-    FARGONA(2),
-    QASHQADARYO(3),
-    ANDIJON(4),
-    QOQON(5),
-    NAMANGAN(6),
-    SAMARQAND(7)
+enum class LocationEnum(val pos: Long, val text: String) {
+    TASHKENT(1, "TOSHKENT"),
+    FARGONA(2, "FARG'ONA"),
+    QASHQADARYO(3, "QASHQADARYO"),
+    ANDIJON(4, "ANDIJON"),
+    QOQON(5, "QO'QON"),
+    NAMANGAN(6, "NAMANGAN"),
+    SAMARQAND(7, "SAMARQAND")
 }

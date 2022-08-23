@@ -54,6 +54,15 @@
         <action
             android:id="@+id/action_mainScreen_to_foodInfoScreen"
             app:destination="@id/foodInfoScreen" />
+        <action
+            android:id="@+id/action_mainScreen_to_basketScreen"
+            app:destination="@id/basketScreen" />
+        <action
+            android:id="@+id/action_mainScreen_to_mapScreen"
+            app:destination="@id/mapScreen" />
+        <action
+            android:id="@+id/action_mainScreen_to_aboutUsScreen"
+            app:destination="@id/aboutUsScreen" />
     </fragment>
     <fragment
         android:id="@+id/foodInfoScreen"
@@ -63,5 +72,27 @@
         <argument
             android:name="foodData"
             app:argType="uz.gita.myevoscloneapp.model.data.FoodData" />
+        <action
+            android:id="@+id/action_foodInfoScreen_to_basketScreen"
+            app:destination="@id/basketScreen" />
     </fragment>
+    <fragment
+        android:id="@+id/basketScreen"
+        android:name="uz.gita.myevoscloneapp.presentation.ui.screens.base.BasketScreen"
+        android:label="screen_basket"
+        tools:layout="@layout/screen_basket" />
+    <fragment
+        android:id="@+id/mapScreen"
+        android:name="uz.gita.myevoscloneapp.presentation.ui.screens.base.MapScreen"
+        android:label="screen_map"
+        tools:layout="@layout/screen_map" >
+        <argument
+            android:name="locationData"
+            app:argType="uz.gita.myevoscloneapp.model.data.LocationData" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutUsScreen"
+        android:name="uz.gita.myevoscloneapp.presentation.ui.screens.base.AboutUsScreen"
+        android:label="screen_about_us"
+        tools:layout="@layout/screen_about_us" />
 </navigation>

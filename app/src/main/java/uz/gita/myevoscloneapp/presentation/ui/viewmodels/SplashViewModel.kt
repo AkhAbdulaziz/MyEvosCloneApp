@@ -6,4 +6,5 @@ interface SplashViewModel {
     val loadAdsLiveData: LiveData<Unit>
     val openMainScreenLiveData : LiveData<Unit>
     val openLoginScreenLiveData : LiveData<Unit>
+    fun clearSelectedFoodsList()
 }

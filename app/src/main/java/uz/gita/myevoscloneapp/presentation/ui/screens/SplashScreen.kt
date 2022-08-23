@@ -31,6 +31,7 @@ class SplashScreen : Fragment(R.layout.screen_splash) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
         val fadingCircle: Sprite = FadingCircle()
+        viewModel.clearSelectedFoodsList()
         _progressBar = progressBar
         (_progressBar as SpinKitView).setIndeterminateDrawable(fadingCircle)
 
@@ -39,7 +40,6 @@ class SplashScreen : Fragment(R.layout.screen_splash) {
     }
 
     private val openLoginScreenObserver = Observer<Unit> {
-        showToast("LOGIN Screen ochildi")
         (_progressBar as SpinKitView).gone()
     }
 

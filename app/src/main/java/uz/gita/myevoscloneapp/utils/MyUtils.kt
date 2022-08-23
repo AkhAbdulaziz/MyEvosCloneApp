@@ -5,8 +5,10 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.viewbinding.ViewBinding
 import timber.log.Timber
+import uz.gita.myevoscloneapp.app.App
 
 fun <T : ViewBinding> T.scope(f: T.() -> Unit) {
     f(this)
@@ -18,6 +20,10 @@ fun timber(message: String, tag: String = "TTT") {
 
 fun makeLog(message: String, tag: String = "TTT") {
     Log.d(tag, message)
+}
+
+fun showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(App.instance, message, duration).show()
 }
 
 //hide keyboard from fragment

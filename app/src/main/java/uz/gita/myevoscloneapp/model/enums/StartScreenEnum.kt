@@ -1,4 +1,4 @@
-package uz.gita.myevoscloneapp.model.enum
+package uz.gita.myevoscloneapp.model.enums
 
 enum class StartScreenEnum {
     LOGIN, MAIN

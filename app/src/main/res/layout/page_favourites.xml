@@ -21,6 +21,7 @@
         android:id="@+id/textEmptyList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:gravity="center"
         android:text="@string/favourites_screen_empty_text"
         android:textColor="@color/color_black"

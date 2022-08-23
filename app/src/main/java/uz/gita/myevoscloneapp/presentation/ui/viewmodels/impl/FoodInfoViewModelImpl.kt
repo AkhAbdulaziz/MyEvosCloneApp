@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import uz.gita.myevoscloneapp.domain.repository.AppRepository
 import uz.gita.myevoscloneapp.model.data.FoodData
 import uz.gita.myevoscloneapp.presentation.ui.viewmodels.FoodInfoViewModel
+import uz.gita.myevoscloneapp.utils.getUniques
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,7 +20,7 @@ class FoodInfoViewModelImpl @Inject constructor(private val appRepository: AppRe
     }
 
     override fun getUserFavouritesList(): List<FoodData> {
-        return appRepository.getUserFavouritesList()
+        return appRepository.getUserFavouritesList().getUniques()
     }
 
 }

@@ -10,6 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.myevoscloneapp.R
 import uz.gita.myevoscloneapp.databinding.PageFavouritesBinding
+import uz.gita.myevoscloneapp.model.data.FoodData
 import uz.gita.myevoscloneapp.presentation.ui.adapters.FavouritesPageAdapter
 import uz.gita.myevoscloneapp.presentation.ui.screens.base.MainScreenDirections
 import uz.gita.myevoscloneapp.presentation.ui.viewmodels.FavouritePageViewModel
@@ -22,16 +23,13 @@ import uz.gita.myevoscloneapp.utils.visible
 class FavouritesPage : Fragment(R.layout.page_favourites) {
     private val binding by viewBinding(PageFavouritesBinding::bind)
     private val viewModel: FavouritePageViewModel by viewModels<FavouritePageViewModelImpl>()
-
     private val favouritesPageAdapter = FavouritesPageAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
-
         loadData()
         favouritesRV.adapter = favouritesPageAdapter
         favouritesRV.layoutManager = LinearLayoutManager(requireContext())
-
         favouritesPageAdapter.setClickListener { pos, foodData ->
             findNavController().navigate(
                 MainScreenDirections.actionMainScreenToFoodInfoScreen(
@@ -40,27 +38,29 @@ class FavouritesPage : Fragment(R.layout.page_favourites) {
             )
         }
 
+        favouritesPageAdapter.setCountChangedListener { foodData, count ->
+            viewModel.addFood(foodData, count)
+        }
+
         btnClearList.setOnClickListener {
-            for (data in viewModel.getAllPopularFoods()) {
-                data.isFavourite = false
-            }
             viewModel.clearUserFavouritesList()
             loadData()
         }
     }
 
     private fun loadData() {
-        favouritesPageAdapter.submitList(viewModel.getUserFavouritesList())
-        checkEmpty()
+        val list = viewModel.getUserFavouritesList()
+        favouritesPageAdapter.submitList(list)
+        checkEmpty(list)
     }
 
-    private fun checkEmpty() = binding.scope {
-        textEmptyList.apply {
-            if (favouritesPageAdapter.itemCount == 0) {
-                visible()
-            } else {
-                gone()
-            }
+    private fun checkEmpty(list: List<FoodData>) = binding.scope {
+        if (list.isEmpty()) {
+            textEmptyList.visible()
+            btnClearList.gone()
+        } else {
+            textEmptyList.gone()
+            btnClearList.visible()
         }
     }
 }

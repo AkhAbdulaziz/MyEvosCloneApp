@@ -12,38 +12,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        tools:src="@drawable/sample_img_popular_food"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/sample_img_popular_food" />
 
     <ImageView
         android:id="@+id/btnBackToScreen"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:padding="8dp"
         android:adjustViewBounds="true"
         android:background="@drawable/back_btn_bg"
         android:clickable="true"
         android:focusable="true"
+        android:padding="8dp"
         android:src="@drawable/back_btn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnBasket"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
         android:layout_margin="16dp"
-        android:padding="8dp"
         android:adjustViewBounds="true"
         android:background="@drawable/back_btn_bg"
         android:clickable="true"
         android:focusable="true"
+        android:padding="8dp"
         android:src="@drawable/ic_basket"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtOrdersCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="0"
+        android:textColor="@color/color_orange"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/btnBasket"
+        app:layout_constraintLeft_toLeftOf="@id/btnBasket"
+        app:layout_constraintRight_toRightOf="@id/btnBasket"
+        app:layout_constraintTop_toTopOf="@id/btnBasket" />
+
 
     <ImageView
         android:layout_width="match_parent"
@@ -104,6 +119,7 @@
         app:layout_constraintTop_toBottomOf="@id/line1">
 
         <LinearLayout
+            android:id="@+id/layoutFavourite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color_white"
@@ -118,6 +134,7 @@
                 android:src="@drawable/ic_heart" />
 
             <TextView
+                android:id="@+id/txtFavourite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
@@ -171,9 +188,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:text="0"
                     android:textColor="@color/color_black"
-                    android:textSize="16sp"
-                    tools:text="1" />
+                    android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnIncrement"

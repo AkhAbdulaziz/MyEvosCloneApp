@@ -2,7 +2,6 @@ package uz.gita.myevoscloneapp.model.local
 
 import com.securepreferences.SecurePreferences
 import uz.gita.myevoscloneapp.app.App
-import uz.gita.myevoscloneapp.model.data.FoodData
 
 class LocalStorage() {
     private val KEY = "SHDIJHEUNNSONAIEFIUBOMXOSMB4s5456sd4cv8d"

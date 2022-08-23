@@ -23,6 +23,7 @@ import uz.gita.myevoscloneapp.presentation.ui.viewmodels.MainPageViewModel
 import uz.gita.myevoscloneapp.presentation.ui.viewmodels.impl.MainPageViewModelImpl
 import uz.gita.myevoscloneapp.utils.scope
 import uz.gita.myevoscloneapp.utils.showToast
+import uz.gita.myevoscloneapp.utils.timber
 
 @AndroidEntryPoint
 class MainPage : Fragment(R.layout.page_main) {
@@ -36,6 +37,7 @@ class MainPage : Fragment(R.layout.page_main) {
         val adsList = ArrayList<AdsData>()
         adsList.addAll(viewModel.getAllAds())
         popFoodAdapter.submitList(viewModel.getAllPopularFoods())
+        timber("Populars List size${viewModel.getAllPopularFoods().size}", "KKK")
 
         adsAdapter = AdsAdapter(requireActivity(), adsList)
         adsPager.adapter = adsAdapter
@@ -53,7 +55,7 @@ class MainPage : Fragment(R.layout.page_main) {
         }
 
         popFoodAdapter.setCountChangedListener { foodData, count ->
-            viewModel.addFood(foodData)
+            viewModel.addFood(foodData, count)
         }
 
         TabLayoutMediator(tabLayout, adsPager) { tab, pos ->
@@ -64,7 +66,7 @@ class MainPage : Fragment(R.layout.page_main) {
             while (true) {
                 delay(2000L)
                 if (adsPager.currentItem == adsList.size - 1) {
-                    adsPager.currentItem = 0
+                    adsPager.setCurrentItem(0, false)
                 } else {
                     adsPager.currentItem += 1
                 }

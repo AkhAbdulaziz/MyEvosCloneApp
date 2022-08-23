@@ -8,6 +8,7 @@ import uz.gita.myevoscloneapp.presentation.ui.pages.*
 
 class MainScreenAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fm, lifecycle) {
+
     private var clickHomeButtonListener: (() -> Unit)? = null
     fun setOnClickHomeButtonListener(block: () -> Unit) {
         clickHomeButtonListener = block

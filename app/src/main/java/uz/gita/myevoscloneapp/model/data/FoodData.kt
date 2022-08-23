@@ -15,7 +15,7 @@ data class FoodData(
 ) : Parcelable
 
 enum class TypeEnum(
-    val pos: Int,
+    val pos: Long,
     val text: String
 ) {
     SET(1, "Set"),
@@ -28,3 +28,5 @@ enum class TypeEnum(
     ICHIMLIKLAR(8, "Ichimliklar"),
     GAZAKLAR(9, "Gazaklar")
 }
+
+

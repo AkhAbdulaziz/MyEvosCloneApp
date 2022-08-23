@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide
 import uz.gita.myevoscloneapp.R
 import uz.gita.myevoscloneapp.model.data.FoodData
 import uz.gita.myevoscloneapp.utils.gone
-import uz.gita.myevoscloneapp.utils.makeLog
 import uz.gita.myevoscloneapp.utils.visible
 
 class PopularFoodsAdapter : ListAdapter<FoodData, PopularFoodsAdapter.VH>(DiffItem) {
@@ -74,7 +73,7 @@ class PopularFoodsAdapter : ListAdapter<FoodData, PopularFoodsAdapter.VH>(DiffIt
                 }
             }
 
-            nameFood.text = food.imageURL
+            nameFood.text = food.name
             priceFood.text = "${food.cost} so'm"
 
             btnAddFood.setOnClickListener {
@@ -104,7 +103,7 @@ class PopularFoodsAdapter : ListAdapter<FoodData, PopularFoodsAdapter.VH>(DiffIt
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH =
-        VH(LayoutInflater.from(parent.context).inflate(R.layout.item_popular_orders, parent, false))
+        VH(LayoutInflater.from(parent.context).inflate(R.layout.item_food, parent, false))
 
     override fun onBindViewHolder(holder: VH, position: Int) = holder.bind()
 }

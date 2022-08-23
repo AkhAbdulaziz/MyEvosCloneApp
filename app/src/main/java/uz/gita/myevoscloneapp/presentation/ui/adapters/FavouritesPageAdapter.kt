@@ -23,6 +23,11 @@ class FavouritesPageAdapter : ListAdapter<FoodData, FavouritesPageAdapter.VH>(Di
         clickListener = block
     }
 
+    private var countChangedListener: ((FoodData, Int) -> Unit)? = null
+    fun setCountChangedListener(block: (FoodData, Int) -> Unit) {
+        countChangedListener = block
+    }
+
     object DiffItem : DiffUtil.ItemCallback<FoodData>() {
         override fun areItemsTheSame(oldItem: FoodData, newItem: FoodData): Boolean {
             return oldItem.id == newItem.id
@@ -84,6 +89,7 @@ class FavouritesPageAdapter : ListAdapter<FoodData, FavouritesPageAdapter.VH>(Di
             btnDelete.setOnClickListener {
                 textCount.text = "${food.count - 1}"
                 food.count -= 1
+                countChangedListener?.invoke(food, food.count)
                 btnAddFood.visible()
                 layoutIncDec.gone()
             }
@@ -92,6 +98,7 @@ class FavouritesPageAdapter : ListAdapter<FoodData, FavouritesPageAdapter.VH>(Di
                 it.gone()
                 textCount.text = "${food.count + 1}"
                 food.count += 1
+                countChangedListener?.invoke(food, food.count)
                 layoutIncDec.visible()
                 btnDelete.visible()
                 btnDec.gone()
@@ -99,12 +106,14 @@ class FavouritesPageAdapter : ListAdapter<FoodData, FavouritesPageAdapter.VH>(Di
             btnInc.setOnClickListener {
                 textCount.text = "${food.count + 1}"
                 food.count += 1
+                countChangedListener?.invoke(food, food.count)
                 btnDelete.gone()
                 btnDec.visible()
             }
             btnDec.setOnClickListener {
                 textCount.text = "${food.count - 1}"
                 food.count -= 1
+                countChangedListener?.invoke(food, food.count)
                 if (food.count == 1) {
                     btnDelete.visible()
                     btnDec.gone()

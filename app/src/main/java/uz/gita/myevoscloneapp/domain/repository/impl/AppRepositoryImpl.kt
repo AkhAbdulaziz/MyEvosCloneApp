@@ -4,9 +4,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import uz.gita.myevoscloneapp.domain.repository.AppRepository
 import uz.gita.myevoscloneapp.model.data.AdsData
 import uz.gita.myevoscloneapp.model.data.FoodData
-import uz.gita.myevoscloneapp.model.enum.StartScreenEnum
+import uz.gita.myevoscloneapp.model.data.LocationData
+import uz.gita.myevoscloneapp.model.enums.PagesEnum
+import uz.gita.myevoscloneapp.model.enums.StartScreenEnum
 import uz.gita.myevoscloneapp.model.local.LocalStorage
-import uz.gita.myevoscloneapp.utils.makeLog
+import uz.gita.myevoscloneapp.utils.timber
 import javax.inject.Inject
 
 class AppRepositoryImpl @Inject constructor(
@@ -15,8 +17,9 @@ class AppRepositoryImpl @Inject constructor(
 ) : AppRepository {
     override val adsData = ArrayList<AdsData>()
     override val foodsData = ArrayList<FoodData>()
-    override val selectedFoodHashMap = HashMap<Long, Int>()
+    override val locationsData = ArrayList<LocationData>()
 
+    override val selectedFoodHashMap = HashMap<Long, Int>()
 
     override val selectedFoodList: List<FoodData>
         get() {
@@ -41,17 +44,20 @@ class AppRepositoryImpl @Inject constructor(
                     result.add(it)
                 }
             }
+            result.sortBy { it.type }
             return result
         }
+
+    override fun clearSelectedFoodsList() {
+        localStorage.selectedFoods = ""
+    }
 
     override fun changeUserFavouriteFoodData(foodData: FoodData, boolean: Boolean) {
         val st = localStorage.userFavouriteFoods
         if (boolean) {
             localStorage.userFavouriteFoods = "$st${foodData.id}#"
         } else {
-            if (userFavouriteFoodList.contains(foodData)) {
-                localStorage.userFavouriteFoods = st.replace("${foodData.id}#", "")
-            }
+            localStorage.userFavouriteFoods = st.replace("${foodData.id}#", "")
         }
     }
 
@@ -75,11 +81,12 @@ class AppRepositoryImpl @Inject constructor(
         localStorage.startScreen = "$startScreen"
     }
 
-    override fun addFood(foodData: FoodData) {
+    override fun addFood(foodData: FoodData, count: Int) {
         if (!selectedFoodList.contains(foodData)) {
             val st = localStorage.selectedFoods
             localStorage.selectedFoods = "$st${foodData.id}#"
-            selectedFoodHashMap.put(foodData.id, 0)
+            selectedFoodHashMap[foodData.id] = count
+            orderChangedListener?.invoke()
         }
     }
 
@@ -95,6 +102,16 @@ class AppRepositoryImpl @Inject constructor(
         successLoadListener = block
     }
 
+    private var changePageListener: ((PagesEnum) -> Unit)? = null
+    override fun setChangePageListener(block: (PagesEnum) -> Unit) {
+        changePageListener = block
+    }
+
+    private var orderChangedListener: (() -> Unit)? = null
+    override fun setOrderChangedListener(block: () -> Unit) {
+        orderChangedListener = block
+    }
+
     override fun getAds() {
         fireStore.collection("ads")
             .get()
@@ -107,7 +124,7 @@ class AppRepositoryImpl @Inject constructor(
                 successLoadListener?.invoke()
             }
             .addOnFailureListener { exception ->
-                makeLog(exception.message.toString())
+                timber(exception.message.toString())
             }
     }
 
@@ -130,7 +147,37 @@ class AppRepositoryImpl @Inject constructor(
                 successLoadListener?.invoke()
             }
             .addOnFailureListener { exception ->
-                makeLog(exception.message.toString())
+                timber(exception.message.toString())
             }
+    }
+
+    override fun getLocations() {
+        fireStore.collection("locations")
+            .get()
+            .addOnSuccessListener { resultList ->
+                for (document in resultList) {
+                    document.data.apply {
+                        val id = this["id"] as Long
+                        val name = this["name"] as String
+                        val description = this["description"] as String
+                        val time = this["time"] as String
+                        val latitude = this["latitude"] as Double
+                        val longitude = this["longitude"] as Double
+                        val type = this["type"] as Long
+                        locationsData.add(
+                            LocationData(id, name, description, time, latitude, longitude, type)
+                        )
+                    }
+                }
+                locationsData.sortBy { it.type }
+                successLoadListener?.invoke()
+            }
+            .addOnFailureListener { exception ->
+                timber(exception.message.toString())
+            }
+    }
+
+    override fun changePage(pagesEnum: PagesEnum) {
+        changePageListener?.invoke(pagesEnum)
     }
 }
