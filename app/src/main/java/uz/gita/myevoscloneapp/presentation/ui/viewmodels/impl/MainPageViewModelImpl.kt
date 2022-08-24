@@ -1,5 +1,6 @@
 package uz.gita.myevoscloneapp.presentation.ui.viewmodels.impl
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import uz.gita.myevoscloneapp.domain.repository.AppRepository
@@ -14,15 +15,19 @@ import javax.inject.Inject
 class MainPageViewModelImpl @Inject constructor(private val appRepository: AppRepository) :
     ViewModel(), MainPageViewModel {
 
+    override val allAdsLiveData = MutableLiveData<List<AdsData>>()
+    override val allPopularFoodsLiveData = MutableLiveData<List<FoodData>>()
+
     override fun addFood(foodData: FoodData, count: Int) {
         appRepository.addFood(foodData, count)
     }
 
-    override fun getAllAds(): List<AdsData> {
-        return appRepository.adsData.getUniqueAds()
+    override fun getAllAds() {
+        allAdsLiveData.value = appRepository.adsData.getUniqueAds()
     }
 
-    override fun getAllPopularFoods(): List<FoodData> {
-        return appRepository.foodsData.getUniques().filter { it.isFavourite }
+    override fun getAllPopularFoods() {
+        allPopularFoodsLiveData.value =
+            appRepository.foodsData.getUniques().filter { it.isFavourite }
     }
 }

@@ -25,9 +25,18 @@ class FavouritesPage : Fragment(R.layout.page_favourites) {
     private val viewModel: FavouritePageViewModel by viewModels<FavouritePageViewModelImpl>()
     private val favouritesPageAdapter = FavouritesPageAdapter()
 
+    private var countChangedListener: (() -> Unit)? = null
+    fun setCountChangedListener(block: () -> Unit) {
+        countChangedListener = block
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadData()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
-        loadData()
         favouritesRV.adapter = favouritesPageAdapter
         favouritesRV.layoutManager = LinearLayoutManager(requireContext())
         favouritesPageAdapter.setClickListener { pos, foodData ->
@@ -39,6 +48,7 @@ class FavouritesPage : Fragment(R.layout.page_favourites) {
         }
 
         favouritesPageAdapter.setCountChangedListener { foodData, count ->
+            countChangedListener?.invoke()
             viewModel.addFood(foodData, count)
         }
 

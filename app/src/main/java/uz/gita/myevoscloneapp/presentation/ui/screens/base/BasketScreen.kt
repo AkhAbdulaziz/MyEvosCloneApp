@@ -28,10 +28,14 @@ class BasketScreen : Fragment(R.layout.screen_basket) {
     private val basketScreenAdapter = BasketScreenAdapter()
     private var allOrdersPrice: Long = 0
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getSelectedFoods()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
         viewModel.selectedFoodsLiveData.observe(viewLifecycleOwner, selectedFoodsObserver)
-        viewModel.getSelectedFoods()
 
         orderedFoodsRV.adapter = basketScreenAdapter
         orderedFoodsRV.layoutManager = LinearLayoutManager(requireContext())

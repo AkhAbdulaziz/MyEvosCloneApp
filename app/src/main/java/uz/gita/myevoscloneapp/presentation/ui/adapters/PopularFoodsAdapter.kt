@@ -80,8 +80,8 @@ class PopularFoodsAdapter : ListAdapter<FoodData, PopularFoodsAdapter.VH>(DiffIt
                 it.gone()
                 textCount.text = "${food.count + 1}x"
                 food.count += 1
-                countChangedListener?.invoke(food, food.count)
                 layoutIncDec.visible()
+                countChangedListener?.invoke(food, food.count)
             }
             btnInc.setOnClickListener {
                 textCount.text = "${food.count + 1}x"
@@ -89,13 +89,15 @@ class PopularFoodsAdapter : ListAdapter<FoodData, PopularFoodsAdapter.VH>(DiffIt
                 countChangedListener?.invoke(food, food.count)
             }
             btnDec.setOnClickListener {
-                textCount.text = "${food.count - 1}x"
-                food.count -= 1
-                if (food.count <= 0) {
-                    btnAddFood.visible()
-                    layoutIncDec.gone()
+                if (food.count != 0) {
+                    textCount.text = "${food.count - 1}x"
+                    food.count -= 1
+                    if (food.count <= 0) {
+                        btnAddFood.visible()
+                        layoutIncDec.gone()
+                    }
+                    countChangedListener?.invoke(food, food.count)
                 }
-                countChangedListener?.invoke(food, food.count)
             }
         }
     }

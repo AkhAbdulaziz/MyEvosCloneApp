@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -27,13 +28,21 @@ class FoodMenuPage : Fragment(R.layout.page_food_menu) {
     private val viewModel: FoodMenuViewModel by viewModels<FoodMenuViewModelImpl>()
     private val adapter = FoodMenuAdapter()
     private val listOfTabs = ArrayList<String>()
-    private lateinit var foodsList: List<FoodData>
+    private var foodsList = ArrayList<FoodData>()
     private lateinit var categories: MutableList<Category>
+
+    private var countChangedListener: (() -> Unit)? = null
+    fun setCountChangedListener(block: () -> Unit) {
+        countChangedListener = block
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllFoods()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
-        foodsList = viewModel.getAllFoods()
-        adapter.submitList(foodsList)
         foodMenuRV.adapter = adapter
         foodMenuRV.layoutManager = GridLayoutManager(requireContext(), 2)
 
@@ -51,8 +60,18 @@ class FoodMenuPage : Fragment(R.layout.page_food_menu) {
         }
 
         adapter.setCountChangedListener { foodData, count ->
+            countChangedListener?.invoke()
             viewModel.addFood(foodData, count)
         }
+
+        viewModel.allFoodsLiveData.observe(viewLifecycleOwner, allFoodsObserver)
+    }
+
+    private val allFoodsObserver = Observer<List<FoodData>> {
+        foodsList.clear()
+        foodsList.addAll(it)
+        adapter.submitList(foodsList)
+        adapter.notifyDataSetChanged()
     }
 
     private fun setTabsTitle() {

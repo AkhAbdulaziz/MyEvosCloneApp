@@ -89,13 +89,15 @@ class FoodMenuAdapter  : ListAdapter<FoodData, FoodMenuAdapter.VH>(DiffItem) {
                 countChangedListener?.invoke(food, food.count)
             }
             btnDec.setOnClickListener {
-                textCount.text = "${food.count - 1}x"
-                food.count -= 1
-                if (food.count <= 0) {
-                    btnAddFood.visible()
-                    layoutIncDec.gone()
+                if (food.count != 0) {
+                    textCount.text = "${food.count - 1}x"
+                    if (food.count <= 0) {
+                        btnAddFood.visible()
+                        layoutIncDec.gone()
+                    }
+                    food.count -= 1
+                    countChangedListener?.invoke(food, food.count)
                 }
-                countChangedListener?.invoke(food, food.count)
             }
         }
     }

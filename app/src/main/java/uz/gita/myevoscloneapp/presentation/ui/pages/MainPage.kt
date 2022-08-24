@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,6 +17,7 @@ import kotlinx.coroutines.launch
 import uz.gita.myevoscloneapp.R
 import uz.gita.myevoscloneapp.databinding.PageMainBinding
 import uz.gita.myevoscloneapp.model.data.AdsData
+import uz.gita.myevoscloneapp.model.data.FoodData
 import uz.gita.myevoscloneapp.presentation.ui.adapters.AdsAdapter
 import uz.gita.myevoscloneapp.presentation.ui.adapters.PopularFoodsAdapter
 import uz.gita.myevoscloneapp.presentation.ui.screens.base.MainScreenDirections
@@ -23,7 +25,6 @@ import uz.gita.myevoscloneapp.presentation.ui.viewmodels.MainPageViewModel
 import uz.gita.myevoscloneapp.presentation.ui.viewmodels.impl.MainPageViewModelImpl
 import uz.gita.myevoscloneapp.utils.scope
 import uz.gita.myevoscloneapp.utils.showToast
-import uz.gita.myevoscloneapp.utils.timber
 
 @AndroidEntryPoint
 class MainPage : Fragment(R.layout.page_main) {
@@ -31,31 +32,23 @@ class MainPage : Fragment(R.layout.page_main) {
     private val viewModel: MainPageViewModel by viewModels<MainPageViewModelImpl>()
     private lateinit var adsAdapter: AdsAdapter
     private val popFoodAdapter = PopularFoodsAdapter()
+    private val adsList = ArrayList<AdsData>()
+
+    private var countChangedListener: (() -> Unit)? = null
+    fun setCountChangedListener(block: () -> Unit) {
+        countChangedListener = block
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllAds()
+        viewModel.getAllPopularFoods()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
-        val adsList = ArrayList<AdsData>()
-        adsList.addAll(viewModel.getAllAds())
-        popFoodAdapter.submitList(viewModel.getAllPopularFoods())
-
         adsAdapter = AdsAdapter(requireActivity(), adsList)
         adsPager.adapter = adsAdapter
-
-        popularFoodsRV.adapter = popFoodAdapter
-        popularFoodsRV.isNestedScrollingEnabled = false
-        popularFoodsRV.layoutManager = GridLayoutManager(requireContext(), 2)
-
-        popFoodAdapter.setClickListener { pos, foodData ->
-            findNavController().navigate(
-                MainScreenDirections.actionMainScreenToFoodInfoScreen(
-                    foodData
-                )
-            )
-        }
-
-        popFoodAdapter.setCountChangedListener { foodData, count ->
-            viewModel.addFood(foodData, count)
-        }
 
         TabLayoutMediator(tabLayout, adsPager) { tab, pos ->
 
@@ -72,12 +65,44 @@ class MainPage : Fragment(R.layout.page_main) {
             }
         }
 
+        popularFoodsRV.adapter = popFoodAdapter
+        popularFoodsRV.isNestedScrollingEnabled = false
+        popularFoodsRV.layoutManager = GridLayoutManager(requireContext(), 2)
+        popFoodAdapter.setClickListener { pos, foodData ->
+            findNavController().navigate(
+                MainScreenDirections.actionMainScreenToFoodInfoScreen(
+                    foodData
+                )
+            )
+        }
+        popFoodAdapter.setCountChangedListener { foodData, count ->
+            countChangedListener?.invoke()
+            viewModel.addFood(foodData, count)
+        }
+
         layoutEvosFamily.setOnClickListener {
             showToast("EVOS Oilasi")
         }
 
         txtBtnDiscounts.setOnClickListener {
             showToast("Aksiyalar")
+        }
+
+        viewModel.allAdsLiveData.observe(viewLifecycleOwner, allAdsObserver)
+        viewModel.allPopularFoodsLiveData.observe(viewLifecycleOwner, allPopularFoodsObserver)
+    }
+
+    private val allAdsObserver = Observer<List<AdsData>> {
+        binding.scope {
+            adsList.addAll(it)
+            adsAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private val allPopularFoodsObserver = Observer<List<FoodData>> { foodsList ->
+        binding.scope {
+            popFoodAdapter.submitList(foodsList)
+            popFoodAdapter.notifyDataSetChanged()
         }
     }
 }

@@ -34,6 +34,10 @@ class FoodInfoViewModelImpl @Inject constructor(private val appRepository: AppRe
         return appRepository.getUserFavouritesList().getUniques()
     }
 
+    override fun addFood(foodData: FoodData, count: Int) {
+        appRepository.addFood(foodData, count)
+    }
+
     init {
         appRepository.setOrderChangedListener {
             getSelectedFoods()

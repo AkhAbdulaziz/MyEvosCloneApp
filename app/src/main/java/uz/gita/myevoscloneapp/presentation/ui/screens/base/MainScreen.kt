@@ -28,8 +28,8 @@ class MainScreen : Fragment(R.layout.screen_main_nav),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = binding.scope {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = MainScreenAdapter(childFragmentManager, lifecycle)
         viewModel.getSelectedFoods()
+        val adapter = MainScreenAdapter(childFragmentManager, lifecycle)
 
         innerLayout.pager.adapter = adapter
         innerLayout.pager.isUserInputEnabled = false
@@ -44,8 +44,8 @@ class MainScreen : Fragment(R.layout.screen_main_nav),
             }
             return@setOnItemSelectedListener true
         }
-        adapter.setOnClickHomeButtonListener {
-            drawerLayout.openDrawer(GravityCompat.START)
+        adapter.setCountChangedListener {
+            viewModel.getSelectedFoods()
         }
 
         innerLayout.btnMenu.setOnClickListener {
@@ -65,14 +65,14 @@ class MainScreen : Fragment(R.layout.screen_main_nav),
         }
 
         viewModel.changePageLiveData.observe(viewLifecycleOwner, changePageObserver)
-//        viewModel.selectedFoodsLiveData.observe(viewLifecycleOwner, selectedFoodsObserver)
-        viewModel.setSelectedFoodsListener {
+        viewModel.selectedFoodsLiveData.observe(viewLifecycleOwner, selectedFoodsObserver)
+        /*viewModel.setSelectedFoodsListener {
             var allOrdersCount = 0
             for (food: FoodData in it) {
                 allOrdersCount += food.count
             }
             binding.innerLayout.txtOrdersCount.text = "$allOrdersCount"
-        }
+        }*/
     }
 
     private val selectedFoodsObserver = Observer<List<FoodData>> {

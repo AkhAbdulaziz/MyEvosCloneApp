@@ -1,5 +1,6 @@
 package uz.gita.myevoscloneapp.presentation.ui.viewmodels.impl
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import uz.gita.myevoscloneapp.domain.repository.AppRepository
@@ -12,11 +13,13 @@ import javax.inject.Inject
 class FoodMenuViewModelImpl @Inject constructor(private val appRepository: AppRepository) :
     ViewModel(), FoodMenuViewModel {
 
+    override val allFoodsLiveData = MutableLiveData<List<FoodData>>()
+
     override fun addFood(foodData: FoodData, count: Int) {
         appRepository.addFood(foodData, count)
     }
 
-    override fun getAllFoods(): List<FoodData> {
-        return appRepository.foodsData.getUniques()
+    override fun getAllFoods() {
+        allFoodsLiveData.value = appRepository.foodsData.getUniques()
     }
 }

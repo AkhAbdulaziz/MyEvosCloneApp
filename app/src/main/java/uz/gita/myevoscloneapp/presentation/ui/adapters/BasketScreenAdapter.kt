@@ -88,28 +88,30 @@ class BasketScreenAdapter : ListAdapter<FoodData, BasketScreenAdapter.VH>(DiffIt
                 it.gone()
                 textCount.text = "${food.count + 1}x"
                 food.count += 1
-                countChangedListener?.invoke(food, food.count)
                 layoutIncDec.visible()
                 btnDelete.visible()
                 btnDec.gone()
+                countChangedListener?.invoke(food, food.count)
             }
             btnInc.setOnClickListener {
                 textCount.text = "${food.count + 1}x"
                 food.count += 1
-                countChangedListener?.invoke(food, food.count)
                 btnDelete.gone()
                 btnDec.visible()
+                countChangedListener?.invoke(food, food.count)
             }
             btnDec.setOnClickListener {
-                textCount.text = "${food.count - 1}x"
-                food.count -= 1
-                countChangedListener?.invoke(food, food.count)
-                if (food.count == 1) {
-                    btnDelete.visible()
-                    btnDec.gone()
-                } else if (food.count == 0) {
-                    btnAddFood.visible()
-                    layoutIncDec.gone()
+                if (food.count != 0) {
+                    textCount.text = "${food.count - 1}x"
+                    food.count -= 1
+                    countChangedListener?.invoke(food, food.count)
+                    if (food.count == 1) {
+                        btnDelete.visible()
+                        btnDec.gone()
+                    } else if (food.count == 0) {
+                        btnAddFood.visible()
+                        layoutIncDec.gone()
+                    }
                 }
             }
         }

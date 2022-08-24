@@ -81,10 +81,12 @@ class FoodInfoScreen : Fragment(R.layout.screen_food_info) {
             txtCount.text = "${foodData.count + 1}x"
             foodData.count += 1
             layoutIncDec.visible()
+            viewModel.addFood(foodData, foodData.count)
         }
         btnIncrement.setOnClickListener {
             txtCount.text = "${foodData.count + 1}x"
             foodData.count += 1
+            viewModel.addFood(foodData, foodData.count)
             /*if (foodData.count > 0) {
                 btnAddFood.gone()
                 layoutIncDec.visible()
@@ -97,6 +99,7 @@ class FoodInfoScreen : Fragment(R.layout.screen_food_info) {
                 btnAddFood.visible()
                 layoutIncDec.gone()
             }
+            viewModel.addFood(foodData, foodData.count)
         }
         viewModel.selectedFoodsLiveData.observe(viewLifecycleOwner, selectedFoodsObserver)
     }

@@ -23,7 +23,8 @@ class MainScreenViewModelImpl @Inject constructor(private val appRepository: App
     }
 
     override fun getSelectedFoods() {
-        selectedFoodsListener?.invoke(appRepository.selectedFoodList.getUniques())
+//        selectedFoodsListener?.invoke(appRepository.selectedFoodList.getUniques())
+        selectedFoodsLiveData.value = appRepository.selectedFoodList.getUniques()
     }
 
     override fun clearSelectedFoodsList() {

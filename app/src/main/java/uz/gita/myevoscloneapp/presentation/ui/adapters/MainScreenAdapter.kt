@@ -9,9 +9,9 @@ import uz.gita.myevoscloneapp.presentation.ui.pages.*
 class MainScreenAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fm, lifecycle) {
 
-    private var clickHomeButtonListener: (() -> Unit)? = null
-    fun setOnClickHomeButtonListener(block: () -> Unit) {
-        clickHomeButtonListener = block
+    private var countChangedListener: (() -> Unit)? = null
+    fun setCountChangedListener(block: () -> Unit) {
+        countChangedListener = block
     }
 
     override fun getItemCount(): Int = 5
@@ -19,12 +19,20 @@ class MainScreenAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> MainPage().apply {
-                setOnClickHomeButtonListener {
-                    clickHomeButtonListener?.invoke()
+                setCountChangedListener {
+                    countChangedListener?.invoke()
                 }
             }
-            1 -> FavouritesPage()
-            2 -> FoodMenuPage()
+            1 -> FavouritesPage().apply {
+                setCountChangedListener {
+                    countChangedListener?.invoke()
+                }
+            }
+            2 -> FoodMenuPage().apply {
+                setCountChangedListener {
+                    countChangedListener?.invoke()
+                }
+            }
             3 -> RestaurantsPage()
             else -> ProfilePage()
         }

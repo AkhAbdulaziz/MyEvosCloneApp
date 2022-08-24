@@ -10,6 +10,8 @@ interface FoodInfoViewModel {
 
     val selectedFoodsLiveData: LiveData<List<FoodData>>
 
+    fun addFood(foodData: FoodData, count: Int)
+
     fun getSelectedFoods()
 
     fun changeUserFavouriteFoodData(foodData: FoodData, boolean: Boolean)
