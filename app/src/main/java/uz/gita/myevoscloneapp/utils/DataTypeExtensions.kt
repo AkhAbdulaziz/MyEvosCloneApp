@@ -2,9 +2,11 @@ package uz.gita.myevoscloneapp.utils
 
 import android.content.res.Resources
 import android.util.TypedValue
+import com.google.android.gms.maps.GoogleMap
 import uz.gita.myevoscloneapp.model.data.AdsData
 import uz.gita.myevoscloneapp.model.data.FoodData
 import uz.gita.myevoscloneapp.model.data.LocationData
+import uz.gita.myevoscloneapp.model.enums.MapTypes
 
 val Int.dp
     get() = TypedValue.applyDimension(
@@ -57,6 +59,7 @@ fun List<AdsData>.getUniqueAds(): List<AdsData> {
             resultList.add(data)
         }
     }
+    resultList.addAll(resultList)   // Doubling
     return resultList
 }
 
@@ -68,4 +71,14 @@ fun List<LocationData>.getUniqueLocations(): List<LocationData> {
         }
     }
     return resultList
+}
+
+fun Int.getMapType(): MapTypes {
+    return when (this) {
+        GoogleMap.MAP_TYPE_NORMAL -> MapTypes.NORMAL
+        GoogleMap.MAP_TYPE_HYBRID -> MapTypes.HYBRID
+        GoogleMap.MAP_TYPE_SATELLITE -> MapTypes.SATELLITE
+        GoogleMap.MAP_TYPE_TERRAIN -> MapTypes.TERRAIN
+        else -> MapTypes.NONE
+    }
 }

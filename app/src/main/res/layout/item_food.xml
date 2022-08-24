@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/progress_bg"
-        android:paddingBottom="16dp">
+        android:paddingBottom="8dp">
 
         <ImageView
             android:id="@+id/img_popular_food"
@@ -43,7 +43,7 @@
             android:id="@+id/price_popular_food"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="50dp"
             android:gravity="center"
             android:paddingHorizontal="16dp"
             android:textColor="@color/color_grey"
@@ -57,8 +57,9 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAddFood"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_height="34dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/text_button_bg"
             android:text="+ savatchaga"
             android:textAllCaps="true"
@@ -73,7 +74,8 @@
             android:id="@+id/layoutIncDec"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
             android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -81,8 +83,8 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnDecrement"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:layout_gravity="left|center"
                 android:background="@drawable/text_button_bg_gray"
                 android:text="-"
@@ -100,8 +102,8 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnIncrement"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:layout_gravity="right|center"
                 android:background="@drawable/text_button_bg"
                 android:text="+"
@@ -110,5 +112,4 @@
 
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.cardview.widget.CardView>

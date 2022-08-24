@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.google.android.material.textfield.TextInputLayout
 import timber.log.Timber
 
 fun Activity.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
@@ -31,4 +32,12 @@ fun View.invisible() {
 
 fun View.gone() {
     this.visibility = View.GONE
+}
+
+fun TextInputLayout.enableError() {
+    this.isErrorEnabled = true
+}
+
+fun TextInputLayout.disableError() {
+    this.isErrorEnabled = false
 }

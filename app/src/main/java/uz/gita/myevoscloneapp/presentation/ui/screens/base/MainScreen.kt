@@ -64,8 +64,15 @@ class MainScreen : Fragment(R.layout.screen_main_nav),
             findNavController().navigate(MainScreenDirections.actionMainScreenToAboutUsScreen())
         }
 
-        viewModel.selectedFoodsLiveData.observe(viewLifecycleOwner, selectedFoodsObserver)
         viewModel.changePageLiveData.observe(viewLifecycleOwner, changePageObserver)
+//        viewModel.selectedFoodsLiveData.observe(viewLifecycleOwner, selectedFoodsObserver)
+        viewModel.setSelectedFoodsListener {
+            var allOrdersCount = 0
+            for (food: FoodData in it) {
+                allOrdersCount += food.count
+            }
+            binding.innerLayout.txtOrdersCount.text = "$allOrdersCount"
+        }
     }
 
     private val selectedFoodsObserver = Observer<List<FoodData>> {

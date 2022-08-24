@@ -17,8 +17,13 @@ class MainScreenViewModelImpl @Inject constructor(private val appRepository: App
     override val selectedFoodsLiveData = MutableLiveData<List<FoodData>>()
     override val changePageLiveData = MutableLiveData<PagesEnum>()
 
+    private var selectedFoodsListener: ((List<FoodData>) -> Unit)? = null
+    override fun setSelectedFoodsListener(block: (List<FoodData>) -> Unit) {
+        selectedFoodsListener = block
+    }
+
     override fun getSelectedFoods() {
-        selectedFoodsLiveData.value = appRepository.selectedFoodList.getUniques()
+        selectedFoodsListener?.invoke(appRepository.selectedFoodList.getUniques())
     }
 
     override fun clearSelectedFoodsList() {

@@ -30,7 +30,7 @@ class ContractScreen : Fragment(R.layout.screen_contract) {
         }
 
         btnNext.setOnClickListener {
-
+            findNavController().navigate(ContractScreenDirections.actionContractScreenToRegisterScreen())
         }
     }
 

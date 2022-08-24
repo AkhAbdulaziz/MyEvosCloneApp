@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyEvosCloneApp</string>
+    <string name="app_name">My Evos</string>
     <string name="title_activity_maps">MapsActivity</string>
 
     <!-- Province strings -->

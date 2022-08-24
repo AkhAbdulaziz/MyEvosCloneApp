@@ -63,7 +63,7 @@ class FavouritesPageAdapter : ListAdapter<FoodData, FavouritesPageAdapter.VH>(Di
                 .error(R.drawable.ic_error)
                 .into(imageFood)
 
-            textCount.text = "${food.count}"
+            textCount.text = "${food.count}x"
             when (food.count) {
                 0 -> {
                     btnAddFood.visible()
@@ -87,7 +87,7 @@ class FavouritesPageAdapter : ListAdapter<FoodData, FavouritesPageAdapter.VH>(Di
             priceFood.text = "${food.cost} so'm"
 
             btnDelete.setOnClickListener {
-                textCount.text = "${food.count - 1}"
+                textCount.text = "${food.count - 1}x"
                 food.count -= 1
                 countChangedListener?.invoke(food, food.count)
                 btnAddFood.visible()
@@ -96,7 +96,7 @@ class FavouritesPageAdapter : ListAdapter<FoodData, FavouritesPageAdapter.VH>(Di
 
             btnAddFood.setOnClickListener {
                 it.gone()
-                textCount.text = "${food.count + 1}"
+                textCount.text = "${food.count + 1}x"
                 food.count += 1
                 countChangedListener?.invoke(food, food.count)
                 layoutIncDec.visible()
@@ -104,14 +104,14 @@ class FavouritesPageAdapter : ListAdapter<FoodData, FavouritesPageAdapter.VH>(Di
                 btnDec.gone()
             }
             btnInc.setOnClickListener {
-                textCount.text = "${food.count + 1}"
+                textCount.text = "${food.count + 1}x"
                 food.count += 1
                 countChangedListener?.invoke(food, food.count)
                 btnDelete.gone()
                 btnDec.visible()
             }
             btnDec.setOnClickListener {
-                textCount.text = "${food.count - 1}"
+                textCount.text = "${food.count - 1}x"
                 food.count -= 1
                 countChangedListener?.invoke(food, food.count)
                 if (food.count == 1) {

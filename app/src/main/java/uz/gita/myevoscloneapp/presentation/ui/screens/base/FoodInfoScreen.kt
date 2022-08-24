@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -15,7 +16,9 @@ import uz.gita.myevoscloneapp.databinding.ScreenFoodInfoBinding
 import uz.gita.myevoscloneapp.model.data.FoodData
 import uz.gita.myevoscloneapp.presentation.ui.viewmodels.FoodInfoViewModel
 import uz.gita.myevoscloneapp.presentation.ui.viewmodels.impl.FoodInfoViewModelImpl
+import uz.gita.myevoscloneapp.utils.gone
 import uz.gita.myevoscloneapp.utils.scope
+import uz.gita.myevoscloneapp.utils.visible
 
 @AndroidEntryPoint
 class FoodInfoScreen : Fragment(R.layout.screen_food_info) {
@@ -28,8 +31,8 @@ class FoodInfoScreen : Fragment(R.layout.screen_food_info) {
         super.onViewCreated(view, savedInstanceState)
         foodData = args.foodData
         setInformation()
-
         checkFavourite()
+        viewModel.getSelectedFoods()
 
         btnBackToScreen.setOnClickListener {
             findNavController().popBackStack()
@@ -74,22 +77,36 @@ class FoodInfoScreen : Fragment(R.layout.screen_food_info) {
         }
 
         btnAddFood.setOnClickListener {
-
+            it.gone()
+            txtCount.text = "${foodData.count + 1}x"
+            foodData.count += 1
+            layoutIncDec.visible()
         }
         btnIncrement.setOnClickListener {
             txtCount.text = "${foodData.count + 1}x"
             foodData.count += 1
-            if (foodData.count > 0) {
-                btnAddFood.isEnabled = true
-            }
+            /*if (foodData.count > 0) {
+                btnAddFood.gone()
+                layoutIncDec.visible()
+            }*/
         }
         btnDecrement.setOnClickListener {
             txtCount.text = "${foodData.count - 1}x"
             foodData.count -= 1
-            if (foodData.count == 0) {
-                btnAddFood.isEnabled = false
+            if (foodData.count <= 0) {
+                btnAddFood.visible()
+                layoutIncDec.gone()
             }
         }
+        viewModel.selectedFoodsLiveData.observe(viewLifecycleOwner, selectedFoodsObserver)
+    }
+
+    private val selectedFoodsObserver = Observer<List<FoodData>> {
+        var allOrdersCount = 0
+        for (food: FoodData in it) {
+            allOrdersCount += food.count
+        }
+        binding.txtOrdersCount.text = "$allOrdersCount"
     }
 
     private fun checkFavourite() = binding.scope {
@@ -132,15 +149,10 @@ class FoodInfoScreen : Fragment(R.layout.screen_food_info) {
             .error(R.drawable.ic_error)
             .into(imgFoodInfo)
 
-        txtCount.text = "${foodData.count}"
-        when (foodData.count) {
-            0 -> {
-                btnAddFood.isEnabled = false
-            }
-            else -> {
-                btnAddFood.isEnabled = true
-            }
-        }
+        txtCount.text = "${foodData.count}x"
+
+        btnAddFood.visible(foodData.count <= 0)
+        layoutIncDec.visible(foodData.count > 0)
 
         nameFoodInfo.text = foodData.name
         priceFoodInfo.text = "${foodData.cost} so'm"

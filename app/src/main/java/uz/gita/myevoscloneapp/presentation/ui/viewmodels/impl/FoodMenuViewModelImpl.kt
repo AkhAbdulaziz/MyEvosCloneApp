@@ -16,7 +16,7 @@ class FoodMenuViewModelImpl @Inject constructor(private val appRepository: AppRe
         appRepository.addFood(foodData, count)
     }
 
-    override fun getAllFoods() : List<FoodData> {
+    override fun getAllFoods(): List<FoodData> {
         return appRepository.foodsData.getUniques()
     }
 }

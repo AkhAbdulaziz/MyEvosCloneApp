@@ -61,7 +61,7 @@ class FoodMenuAdapter  : ListAdapter<FoodData, FoodMenuAdapter.VH>(DiffItem) {
                 .error(R.drawable.ic_error)
                 .into(imageFood)
 
-            textCount.text = "${food.count}"
+            textCount.text = "${food.count}x"
             when (food.count) {
                 0 -> {
                     btnAddFood.visible()
@@ -81,9 +81,7 @@ class FoodMenuAdapter  : ListAdapter<FoodData, FoodMenuAdapter.VH>(DiffItem) {
                 textCount.text = "${food.count + 1}x"
                 food.count += 1
                 countChangedListener?.invoke(food, food.count)
-                layoutIncDec.apply {
-                    visible()
-                }
+                layoutIncDec.visible()
             }
             btnInc.setOnClickListener {
                 textCount.text = "${food.count + 1}x"
@@ -93,11 +91,11 @@ class FoodMenuAdapter  : ListAdapter<FoodData, FoodMenuAdapter.VH>(DiffItem) {
             btnDec.setOnClickListener {
                 textCount.text = "${food.count - 1}x"
                 food.count -= 1
-                countChangedListener?.invoke(food, food.count)
-                if (food.count == 0) {
+                if (food.count <= 0) {
                     btnAddFood.visible()
                     layoutIncDec.gone()
                 }
+                countChangedListener?.invoke(food, food.count)
             }
         }
     }

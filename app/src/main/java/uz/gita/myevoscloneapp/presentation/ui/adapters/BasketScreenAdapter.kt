@@ -53,7 +53,7 @@ class BasketScreenAdapter : ListAdapter<FoodData, BasketScreenAdapter.VH>(DiffIt
                 .error(R.drawable.ic_error)
                 .into(imageFood)
 
-            textCount.text = "${food.count}"
+            textCount.text = "${food.count}x"
             when (food.count) {
                 0 -> {
                     btnAddFood.visible()
@@ -77,7 +77,7 @@ class BasketScreenAdapter : ListAdapter<FoodData, BasketScreenAdapter.VH>(DiffIt
             priceFood.text = "${food.cost} so'm"
 
             btnDelete.setOnClickListener {
-                textCount.text = "${food.count - 1}"
+                textCount.text = "${food.count - 1}x"
                 food.count -= 1
                 countChangedListener?.invoke(food, food.count)
                 btnAddFood.visible()
@@ -86,7 +86,7 @@ class BasketScreenAdapter : ListAdapter<FoodData, BasketScreenAdapter.VH>(DiffIt
 
             btnAddFood.setOnClickListener {
                 it.gone()
-                textCount.text = "${food.count + 1}"
+                textCount.text = "${food.count + 1}x"
                 food.count += 1
                 countChangedListener?.invoke(food, food.count)
                 layoutIncDec.visible()
@@ -94,14 +94,14 @@ class BasketScreenAdapter : ListAdapter<FoodData, BasketScreenAdapter.VH>(DiffIt
                 btnDec.gone()
             }
             btnInc.setOnClickListener {
-                textCount.text = "${food.count + 1}"
+                textCount.text = "${food.count + 1}x"
                 food.count += 1
                 countChangedListener?.invoke(food, food.count)
                 btnDelete.gone()
                 btnDec.visible()
             }
             btnDec.setOnClickListener {
-                textCount.text = "${food.count - 1}"
+                textCount.text = "${food.count - 1}x"
                 food.count -= 1
                 countChangedListener?.invoke(food, food.count)
                 if (food.count == 1) {

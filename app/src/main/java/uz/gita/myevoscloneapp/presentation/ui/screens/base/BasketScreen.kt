@@ -65,6 +65,7 @@ class BasketScreen : Fragment(R.layout.screen_basket) {
                 btnSwitchToMenu.visible()
 
                 btnOrder.gone()
+                orderedFoodsRV.gone()
             } else {
                 basketScreenAdapter.submitList(it)
                 imgEmptyBg.gone()
@@ -75,6 +76,7 @@ class BasketScreen : Fragment(R.layout.screen_basket) {
                 btnSwitchToMenu.gone()
 
                 btnOrder.visible()
+                orderedFoodsRV.visible()
 
                 for (food: FoodData in it) {
                     allOrdersPrice += food.cost

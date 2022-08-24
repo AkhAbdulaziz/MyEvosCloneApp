@@ -122,7 +122,7 @@ dependencies {
     implementation "com.airbnb.android:lottie:4.1.0"
 
     /**
-     *  Loading animation
+     *  SpinKitView - Loading animation
      */
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 

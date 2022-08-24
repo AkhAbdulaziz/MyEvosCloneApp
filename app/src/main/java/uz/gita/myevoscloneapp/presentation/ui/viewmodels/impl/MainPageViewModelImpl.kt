@@ -14,15 +14,15 @@ import javax.inject.Inject
 class MainPageViewModelImpl @Inject constructor(private val appRepository: AppRepository) :
     ViewModel(), MainPageViewModel {
 
+    override fun addFood(foodData: FoodData, count: Int) {
+        appRepository.addFood(foodData, count)
+    }
+
     override fun getAllAds(): List<AdsData> {
         return appRepository.adsData.getUniqueAds()
     }
 
     override fun getAllPopularFoods(): List<FoodData> {
         return appRepository.foodsData.getUniques().filter { it.isFavourite }
-    }
-
-    override fun addFood(foodData: FoodData, count : Int) {
-        appRepository.addFood(foodData, count)
     }
 }

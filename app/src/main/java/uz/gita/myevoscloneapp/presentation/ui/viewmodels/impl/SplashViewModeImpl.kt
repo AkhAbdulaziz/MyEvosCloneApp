@@ -32,7 +32,6 @@ class SplashViewModeImpl @Inject constructor(private val appRepository: AppRepos
                 val startScreen = appRepository.getStartScreen()
                 if (startScreen == StartScreenEnum.LOGIN) {
                     openLoginScreenLiveData.value = Unit
-                    appRepository.setStartScreen(StartScreenEnum.MAIN)
                 } else {
                     openMainScreenLiveData.value = Unit
                 }

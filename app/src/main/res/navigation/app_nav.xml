@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_splashScreen_to_mainScreen"
             app:destination="@id/mainScreen" />
+        <action
+            android:id="@+id/action_splashScreen_to_selectLanguageScreen"
+            app:destination="@id/selectLanguageScreen" />
     </fragment>
     <fragment
         android:id="@+id/selectLanguageScreen"
@@ -45,7 +48,11 @@
         android:id="@+id/registerScreen"
         android:name="uz.gita.myevoscloneapp.presentation.ui.screens.intro.RegisterScreen"
         android:label="screen_register"
-        tools:layout="@layout/screen_register" />
+        tools:layout="@layout/screen_register" >
+        <action
+            android:id="@+id/action_registerScreen_to_mainScreen"
+            app:destination="@id/mainScreen" />
+    </fragment>
     <fragment
         android:id="@+id/mainScreen"
         android:name="uz.gita.myevoscloneapp.presentation.ui.screens.base.MainScreen"

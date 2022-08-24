@@ -3,6 +3,7 @@ package uz.gita.myevoscloneapp.domain.repository
 import uz.gita.myevoscloneapp.model.data.AdsData
 import uz.gita.myevoscloneapp.model.data.FoodData
 import uz.gita.myevoscloneapp.model.data.LocationData
+import uz.gita.myevoscloneapp.model.enums.MapTypes
 import uz.gita.myevoscloneapp.model.enums.PagesEnum
 import uz.gita.myevoscloneapp.model.enums.StartScreenEnum
 
@@ -34,4 +35,7 @@ interface AppRepository {
     fun clearSelectedFoodsList()
 
     fun changePage(pagesEnum: PagesEnum)
+
+    fun lastMapType(mapTypes: MapTypes)
+    fun lastMapType(): MapTypes
 }

@@ -15,6 +15,17 @@ class FoodInfoViewModelImpl @Inject constructor(private val appRepository: AppRe
 
     override val updateFoodLiveData = MutableLiveData<Unit>()
 
+    override val selectedFoodsLiveData = MutableLiveData<List<FoodData>>()
+
+   /* private var selectedFoodsListener: ((List<FoodData>) -> Unit)? = null
+    override fun setSelectedFoodsListener(block: (List<FoodData>) -> Unit) {
+        selectedFoodsListener = block
+    }*/
+
+    override fun getSelectedFoods() {
+        selectedFoodsLiveData.value =  appRepository.selectedFoodList.getUniques()
+    }
+
     override fun changeUserFavouriteFoodData(foodData: FoodData, boolean: Boolean) {
         appRepository.changeUserFavouriteFoodData(foodData, boolean)
     }
@@ -23,4 +34,9 @@ class FoodInfoViewModelImpl @Inject constructor(private val appRepository: AppRe
         return appRepository.getUserFavouritesList().getUniques()
     }
 
+    init {
+        appRepository.setOrderChangedListener {
+            getSelectedFoods()
+        }
+    }
 }

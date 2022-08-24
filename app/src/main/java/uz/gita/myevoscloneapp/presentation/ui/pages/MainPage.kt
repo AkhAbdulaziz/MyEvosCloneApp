@@ -37,7 +37,6 @@ class MainPage : Fragment(R.layout.page_main) {
         val adsList = ArrayList<AdsData>()
         adsList.addAll(viewModel.getAllAds())
         popFoodAdapter.submitList(viewModel.getAllPopularFoods())
-        timber("Populars List size${viewModel.getAllPopularFoods().size}", "KKK")
 
         adsAdapter = AdsAdapter(requireActivity(), adsList)
         adsPager.adapter = adsAdapter

@@ -19,7 +19,6 @@ import uz.gita.myevoscloneapp.presentation.ui.viewmodels.SplashViewModel
 import uz.gita.myevoscloneapp.presentation.ui.viewmodels.impl.SplashViewModeImpl
 import uz.gita.myevoscloneapp.utils.gone
 import uz.gita.myevoscloneapp.utils.scope
-import uz.gita.myevoscloneapp.utils.showToast
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
@@ -40,6 +39,7 @@ class SplashScreen : Fragment(R.layout.screen_splash) {
     }
 
     private val openLoginScreenObserver = Observer<Unit> {
+        findNavController().navigate(SplashScreenDirections.actionSplashScreenToSelectLanguageScreen())
         (_progressBar as SpinKitView).gone()
     }
 

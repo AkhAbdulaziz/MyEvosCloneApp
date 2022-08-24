@@ -5,9 +5,11 @@ import uz.gita.myevoscloneapp.domain.repository.AppRepository
 import uz.gita.myevoscloneapp.model.data.AdsData
 import uz.gita.myevoscloneapp.model.data.FoodData
 import uz.gita.myevoscloneapp.model.data.LocationData
+import uz.gita.myevoscloneapp.model.enums.MapTypes
 import uz.gita.myevoscloneapp.model.enums.PagesEnum
 import uz.gita.myevoscloneapp.model.enums.StartScreenEnum
 import uz.gita.myevoscloneapp.model.local.LocalStorage
+import uz.gita.myevoscloneapp.utils.getMapType
 import uz.gita.myevoscloneapp.utils.timber
 import javax.inject.Inject
 
@@ -23,12 +25,12 @@ class AppRepositoryImpl @Inject constructor(
 
     override val selectedFoodList: List<FoodData>
         get() {
-            val st = localStorage.selectedFoods
-            val list = st.split("#")
-            val result = ArrayList<FoodData>()
-            foodsData.onEach {
-                if (list.contains(it.id.toString())) {
-                    result.add(it)
+            val st: String = localStorage.selectedFoods
+            val list: List<String> = st.split("#")
+            val result: ArrayList<FoodData> = ArrayList()
+            foodsData.onEach { foodData ->
+                if (list.contains(foodData.id.toString())) {
+                    result.add(foodData)
                 }
             }
             return result
@@ -82,12 +84,14 @@ class AppRepositoryImpl @Inject constructor(
     }
 
     override fun addFood(foodData: FoodData, count: Int) {
-        if (!selectedFoodList.contains(foodData)) {
-            val st = localStorage.selectedFoods
+        val st = localStorage.selectedFoods
+        if (!st.contains("${foodData.id}")) {
             localStorage.selectedFoods = "$st${foodData.id}#"
             selectedFoodHashMap[foodData.id] = count
-            orderChangedListener?.invoke()
+        } else {
+            selectedFoodList[(selectedFoodList.indexOf(foodData))].count = count
         }
+        orderChangedListener?.invoke()
     }
 
     override fun removeFood(foodData: FoodData) {
@@ -179,5 +183,13 @@ class AppRepositoryImpl @Inject constructor(
 
     override fun changePage(pagesEnum: PagesEnum) {
         changePageListener?.invoke(pagesEnum)
+    }
+
+    override fun lastMapType(mapTypes: MapTypes) {
+        localStorage.lastMapType = mapTypes.getValue()
+    }
+
+    override fun lastMapType(): MapTypes {
+        return localStorage.lastMapType.getMapType()
     }
 }
